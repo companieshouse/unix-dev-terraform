@@ -12,7 +12,7 @@ resource "aws_subnet" "main_public_subnet" {
   vpc_id                  = aws_vpc.mainvpc.id
   cidr_block              = "10.123.1.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = "eu-west-2a"
+  availability_zone       = "us-east-1a"
 
   tags = {
     Name = "dev-public"
@@ -68,7 +68,7 @@ resource "aws_security_group" "main_aws_sg" {
 
 resource "aws_key_pair" "clouddev_auth" {
   key_name   = "clouddev_auth"
-  public_key = file("~/.ssh/samdev.pub")
+  public_key = file("~/.ssh/clouddev.pub")
 }
 
 resource "aws_instance" "dev_node" {
@@ -92,7 +92,7 @@ resource "aws_instance" "dev_node" {
     command = templatefile("${var.host_os}-ssh-config.tpl", {
       hostname     = self.public_ip,
       user         = "ubuntu"
-      identityfile = "~/.ssh/samdev"
+      identityfile = "~/.ssh/clouddev"
     })
     interpreter = ["bash", "-c"]
   }
