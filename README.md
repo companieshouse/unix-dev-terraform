@@ -52,4 +52,5 @@ This will build the following:
 - IAM role to allow the instance to communicate with AWS CloudWatch
 - IAM profile to attach to the instance
 
-The **userdata** will update the instance, install and set up the cloudwatch configuration file, install docker and add the user to the docker group. 
+The **userdata** will update the instance, install and set up the cloudwatch configuration file, install docker and add the user to the docker group.
+This will give you a good base to develop from. Furhter reading check out the Terraform [Docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
