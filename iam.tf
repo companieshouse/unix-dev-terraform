@@ -43,6 +43,7 @@ resource "aws_iam_role_policy" "CloudWatchFullAccess_COPY" {
           "iam:GetPolicy",
           "iam:GetPolicyVersion",
           "iam:GetRole"
+          
       ],
       "Effect": "Allow",
       "Resource": "*"
@@ -58,6 +59,59 @@ resource "aws_iam_role_policy" "CloudWatchFullAccess_COPY" {
         }
     }
   ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "CloudWatchAgentServerPolicy_COPY" {
+  name = "CloudWatchAgentServerPolicy_COPY"
+  role = "${aws_iam_role.EC2_dev_role.id}"
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:PutMetricData",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeTags",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams",
+                "logs:DescribeLogGroups",
+                "logs:CreateLogStream",
+                "logs:CreateLogGroup"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameter"
+            ],
+            "Resource": "arn:aws:ssm:*:*:parameter/AmazonCloudWatch-*"
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "s3-dev" {
+  name = "s3-dev"
+  role = "${aws_iam_role.EC2_dev_role.id}"
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "s3-object-lambda:*"
+            ],
+            "Resource": "*"
+        }
+    ]
 }
 EOF
 }

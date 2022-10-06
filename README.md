@@ -51,6 +51,16 @@ This will build the following:
 - Ubuntu 22.04 instance (t2 micro), with the AMI detailed in the datasources.tf file
 - IAM role to allow the instance to communicate with AWS CloudWatch
 - IAM profile to attach to the instance
+- SNS Topic
+- Cloudwatch monitoring and alarms
+  - CPU system
+  - CPU user
+  - RAM usage
+  - Swap usage
+  - Status Check Failed status
+  - Disk usage
+
+> There is a template file for cloudwatch in this repo called cloudwatch.config that you can use in place of the one being used in the userdata
 
 The **userdata** will update the instance, install and set up the cloudwatch configuration file, install docker and add the user to the docker group.
 This will give you a good base to develop from. Furhter reading check out the Terraform [Docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
