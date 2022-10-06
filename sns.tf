@@ -4,7 +4,7 @@ resource "aws_sns_topic" "SMTP_topic" {
 
 resource "aws_sns_topic_subscription" "SMTP_Subscription" {
   topic_arn = aws_sns_topic.SMTP_topic.arn
-  for_each  = toset(["sharrison1@companieshouse.gov.uk"])
+  for_each  = toset(["YOUREMAIL"])
   protocol  = "email"
   endpoint  = each.value
 

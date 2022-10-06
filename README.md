@@ -52,6 +52,7 @@ This will build the following:
 - IAM role to allow the instance to communicate with AWS CloudWatch
 - IAM profile to attach to the instance
 - SNS Topic
+  - You need to change the email address within sns.tf if you want email to come through.
 - Cloudwatch monitoring and alarms
   - CPU system
   - CPU user
