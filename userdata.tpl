@@ -3,7 +3,7 @@ sudo apt-get update -y &&
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
 sudo dpkg -i amazon-cloudwatch-agent.deb
-sudo curl -o /opt/aws/amazon-cloudwatch-agent/amazon-cloudwatch-agent.json https://raw.githubusercontent.com/Harrison-S1/terraform/master/cloudwatch-config.json
+sudo curl -o /opt/aws/amazon-cloudwatch-agent/amazon-cloudwatch-agent.json https://raw.githubusercontent.com/companieshouse/unix-dev-terraform/main/cloudwatch.json
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/amazon-cloudwatch-agent.json 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 echo \
