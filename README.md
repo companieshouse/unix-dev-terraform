@@ -61,6 +61,21 @@ This will build the following:
   - Status Check Failed status
   - Disk usage
 
+You can test the alarms by running the following stress tests:
+```BASH
+sudo apt install stress
+```
+
+```BASH
+sudo stress --cpu 12
+```
+This will max out the CPU.
+
+```BASH
+fallocate -l 6.8GB test.img
+```
+Will take storage to 95%.
+
 > There is a template file for cloudwatch in this repo called cloudwatch.config that you can use in place of the one being used in the userdata
 
 The **userdata** will update the instance, install and set up the cloudwatch configuration file, install docker and add the user to the docker group.
