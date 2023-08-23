@@ -7,7 +7,7 @@ account = "hdev"
 region  = "euw2"
 
 # Application details
-application = "unix-development"
+application = "unix-development-01"
 environment = "development"
 
 instance_count = 1

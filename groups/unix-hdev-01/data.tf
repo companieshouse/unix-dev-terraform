@@ -110,8 +110,8 @@ data "template_cloudinit_config" "userdata_config" {
   }
 }
 
-data "aws_security_group" "unix_development_sg" {
-  for_each = toset(var.unix_development_sg)
+data "aws_security_group" "unix_development-01_sg" {
+  for_each = toset(var.unix_development-01_sg)
   filter {
     name   = "group-name"
     values = [each.value]
