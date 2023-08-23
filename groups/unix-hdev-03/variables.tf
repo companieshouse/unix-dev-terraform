@@ -252,8 +252,8 @@ variable "netapp_ips" {
 # ------------------------------------------------------------------------------
 # UNIX Development SG variables
 # ------------------------------------------------------------------------------
-variable "unix_development_sg" {
+variable "unix_development_03_sg" {
   type        = list(any)
-  description = "List of Unix Development Security Groups"
+  description = "List of Unix Development 03 Security Groups"
   default     = []
 }
