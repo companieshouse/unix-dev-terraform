@@ -42,7 +42,7 @@ module "db_ec2_security_group" {
       from_port                = 1521
       to_port                  = 1522
       protocol                 = "tcp"
-      description              = "Oracle DB CHIPS Training25 DBA Security Group"
+      description              = "UNIX Development Security Group"
       source_security_group_id = group
     }
   ]
@@ -59,10 +59,10 @@ resource "aws_instance" "ec2" {
   ami = var.ami_id == null ? data.aws_ami.oracle_12.id : var.ami_id
 
   key_name      = aws_key_pair.ec2_keypair.key_name
-  instance_type = var.db_instance_size
+  instance_type = var.instance_size
   subnet_id     = local.data_subnet_az_map[element(local.deployment_zones, count.index)]["id"]
 
-  iam_instance_profile = module.db_instance_profile.aws_iam_instance_profile.name
+  iam_instance_profile = module.instance_profile.aws_iam_instance_profile.name
   user_data_base64     = data.template_cloudinit_config.userdata_config[count.index].rendered
 
   vpc_security_group_ids = [
@@ -95,7 +95,7 @@ resource "aws_instance" "ec2" {
 }
 
 resource "aws_route53_record" "ec2_dns" {
-  count = var.db_instance_count
+  count = var.instance_count
 
   zone_id = data.aws_route53_zone.private_zone.zone_id
   name    = format("%s-%02d", var.application, count.index + 1)
