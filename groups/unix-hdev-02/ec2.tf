@@ -3,7 +3,7 @@
 # EC2 Sec Group
 # ------------------------------------------------------------------------------
 
-module "db_ec2_security_group" {
+module "ec2_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 3.0"
 
@@ -66,7 +66,7 @@ resource "aws_instance" "ec2" {
   user_data_base64     = data.template_cloudinit_config.userdata_config[count.index].rendered
 
   vpc_security_group_ids = [
-    module.db_ec2_security_group.this_security_group_id
+    module.ec2_security_group.this_security_group_id
   ]
 
   root_block_device {
