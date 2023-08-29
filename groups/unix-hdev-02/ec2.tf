@@ -7,8 +7,8 @@ module "ec2_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 3.0"
 
-  name        = "sgr-${var.application}-db-ec2-001"
-  description = "Security group for the DB ec2 instance"
+  name        = "sgr-${var.application}-ec2-001"
+  description = "Security group for the ec2 instance"
   vpc_id      = data.aws_vpc.vpc.id
 
   ingress_with_self = [
@@ -70,7 +70,7 @@ resource "aws_instance" "ec2" {
   ]
 
   root_block_device {
-    volume_size = "50"
+    volume_size = "80"
     volume_type = "gp3"
     encrypted   = true
     kms_key_id  = data.aws_kms_key.ebs.arn
