@@ -11,7 +11,7 @@ application = "unix-dev-03"
 environment = "development"
 
 instance_count = 1
-instance_size = "t4g.nano"
+instance_size = "t2.medium"
 
 availability_zones = ["eu-west-2a","eu-west-2b"]
 
