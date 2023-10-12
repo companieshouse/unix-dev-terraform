@@ -74,6 +74,7 @@ resource "aws_instance" "ec2" {
     volume_type = "gp3"
     encrypted   = true
     kms_key_id  = data.aws_kms_key.ebs.arn
+    delete_on_termination = "false"
   }
 
   tags = merge(
