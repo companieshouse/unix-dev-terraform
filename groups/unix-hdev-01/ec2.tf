@@ -80,7 +80,7 @@ resource "aws_instance" "ec2" {
   tags = merge(
     local.default_tags,
     tomap({
-      "Name"        = format("%s", var.application)
+      "Name"        = format("%s-%02d", var.shrtapp, count.index + 1)
       "Domain"      = local.internal_fqdn,
       "ServiceTeam" = "UNIX",
       "Terraform"   = true
@@ -99,7 +99,7 @@ resource "aws_route53_record" "ec2_dns" {
   count = var.instance_count
 
   zone_id = data.aws_route53_zone.private_zone.zone_id
-  name    = format("%s", var.application)
+  name    = format("%s-%02d", var.shrtapp, count.index +1)
   type    = "A"
   ttl     = "300"
   records = [aws_instance.ec2[count.index].private_ip]
