@@ -8,6 +8,7 @@ region  = "euw2"
 
 # Application details
 application = "storage-dev-02"
+shrtapp = "storage-dev"
 environment = "development"
 
 instance_count = 1
