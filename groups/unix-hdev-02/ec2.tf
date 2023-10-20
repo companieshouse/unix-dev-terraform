@@ -80,7 +80,7 @@ resource "aws_instance" "ec2" {
   tags = merge(
     local.default_tags,
     tomap({
-      "Name"        = format("%s-%02d", var.application, count.index + 1)
+      "Name"        = format("%s-%02d", var.shrtapp, count.index + 1)
       "Domain"      = local.internal_fqdn,
       "ServiceTeam" = "UNIX",
       "Terraform"   = true
@@ -99,7 +99,7 @@ resource "aws_route53_record" "ec2_dns" {
   count = var.instance_count
 
   zone_id = data.aws_route53_zone.private_zone.zone_id
-  name    = format("%s", var.application)
+  name    = format("%s-%02d", var.shrtapp, count.index +1)
   type    = "A"
   ttl     = "300"
   records = [aws_instance.ec2[count.index].private_ip]
@@ -110,7 +110,7 @@ resource "aws_route53_record" "dns_cname" {
   name    = format("%s", var.application)
   type    = "CNAME"
   ttl     = "300"
-  records = [format("%s.%s", var.application, local.internal_fqdn)]
+  records = [format("%s-01.%s", var.shrtapp, local.internal_fqdn)]
   lifecycle {
     #Ignore changes to the record value, this may be changed outside of terraform 
     ignore_changes = [records]
