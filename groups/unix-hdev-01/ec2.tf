@@ -110,7 +110,7 @@ resource "aws_route53_record" "dns_cname" {
   name    = format("%s", var.application)
   type    = "CNAME"
   ttl     = "300"
-  records = [format("%s.%s", var.application, local.internal_fqdn)]
+  records = [format("%s-01.%s", var.shrtapp, local.internal_fqdn)]
   lifecycle {
     #Ignore changes to the record value, this may be changed outside of terraform 
     ignore_changes = [records]
