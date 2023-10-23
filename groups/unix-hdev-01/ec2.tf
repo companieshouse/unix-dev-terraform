@@ -104,15 +104,3 @@ resource "aws_route53_record" "ec2_dns" {
   ttl     = "300"
   records = [aws_instance.ec2[count.index].private_ip]
 }
-
-resource "aws_route53_record" "dns_cname" {
-  zone_id = data.aws_route53_zone.private_zone.zone_id
-  name    = format("%s", var.application)
-  type    = "CNAME"
-  ttl     = "300"
-  records = [format("%s-01.%s", var.shrtapp, local.internal_fqdn)]
-  lifecycle {
-    #Ignore changes to the record value, this may be changed outside of terraform 
-    ignore_changes = [records]
-  }
-}
