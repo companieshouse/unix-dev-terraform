@@ -79,12 +79,13 @@ resource "aws_instance" "ec2" {
   tags = merge(
     local.default_tags,
     tomap({
-      "Name"        = format("%s-%02d", var.shrtapp, count.index + 1)
+      "Name"        = format("%s", var.application)
       "Domain"      = local.internal_fqdn,
       "ServiceTeam" = "UNIX/Storage",
       "Terraform"   = true
     })
   )
+
 
   lifecycle {
     ignore_changes = [
