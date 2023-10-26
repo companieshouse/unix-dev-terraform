@@ -86,6 +86,7 @@ resource "aws_instance" "ec2" {
     })
   )
 
+
   lifecycle {
     ignore_changes = [
       user_data,
