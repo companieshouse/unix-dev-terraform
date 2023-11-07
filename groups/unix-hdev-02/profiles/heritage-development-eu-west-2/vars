@@ -8,7 +8,6 @@ region  = "euw2"
 
 # Application details
 application = "unix-dev-02"
-shrtapp = "unix-dev"
 environment = "development"
 
 instance_count = 1
