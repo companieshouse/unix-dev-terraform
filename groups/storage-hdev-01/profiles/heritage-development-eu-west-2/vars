@@ -11,7 +11,7 @@ application = "storage-dev-01"
 environment = "development"
 
 instance_count = 1
-instance_size = "t3.small"
+instance_size = "t3.medium"
 
 availability_zones = ["eu-west-2a","eu-west-2b"]
 
