@@ -4,7 +4,7 @@ module "cloudwatch-alarms" {
 
   name_prefix               = "unix-dev-01"
   namespace                 = var.cloudwatch_namespace
-  instance_id               = aws_instance[count.index].id
+  instance_id               = aws_instance.ec2[count.index].id
   status_evaluation_periods = "3"
   status_statistics_period  = "60"
 
@@ -18,7 +18,7 @@ module "cloudwatch-alarms" {
       instance_device_mount_path = "/"
       instance_device_location   = "xvda2"
       instance_device_fstype     = "xfs"
-    }
+    },
     {
       instance_device_mount_path = "/mnt/netapp"
       instance_device_location   = "vg_unix_dev_test-lv_unix_dev_test"
@@ -45,7 +45,7 @@ module "cloudwatch-alarms" {
   ]
 
   depends_on = [
-    aws_instance.db_ec2,
+    aws_instance.ec2,
     module.cloudwatch_sns_notifications
   ]
 
