@@ -26,6 +26,8 @@ maintenance_window_schedule_expression = "cron(00 01 ? * SUN *)"
 
 netapp_ips = ["10.104.9.138"]
 
+cloudwatch_namespace = "UNIX-DEV-01"
+
 ############################################
 # Log entries to be aggregated in Cloudwatch Logs
 ############################################
