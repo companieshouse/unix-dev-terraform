@@ -21,7 +21,7 @@ module "cloudwatch-alarms" {
     }
     {
       instance_device_mount_path = "/mnt/netapp"
-      instance_device_location   = ""
+      instance_device_location   = "vg_unix_dev_test-lv_unix_dev_test"
       instance_device_fstype     = "xfs"
     }
   ]
