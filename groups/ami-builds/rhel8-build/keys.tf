@@ -3,6 +3,6 @@
 # ------------------------------------------------------------------------------
 
 resource "aws_key_pair" "ec2_keypair" {
-  key_name   = "unix-dev-02"
+  key_name   = "rhel8-build"
   public_key = local.ec2_data["public-key"]
 }

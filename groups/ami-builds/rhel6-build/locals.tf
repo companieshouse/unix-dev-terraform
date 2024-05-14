@@ -71,7 +71,7 @@ locals {
     TimeoutSeconds     = "3600"
   }
 
-source_security_group_id = [for item in data.aws_security_group.unix_development_02_sg : item.id]
+source_security_group_id = [for item in data.aws_security_group.rhel6_build_sg : item.id]
 
   default_tags = {
     Terraform   = "true"

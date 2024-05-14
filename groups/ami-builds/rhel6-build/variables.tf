@@ -254,6 +254,6 @@ variable "netapp_ips" {
 # ------------------------------------------------------------------------------
 variable "rhel6_build_sg" {
   type        = list(any)
-  description = "List of Unix Development 02 Security Groups"
+  description = "List of rhel6_build Security Groups"
   default     = []
 }

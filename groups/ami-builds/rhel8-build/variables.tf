@@ -70,7 +70,7 @@ variable "domain_name" {
 # ------------------------------------------------------------------------------
 variable "ami_name" {
   type        = string
-  default     = "oracle-12-*"
+  default     = "rhel8-base-ami-*"
   description = "Name of the AMI to use in the Auto Scaling configuration for email servers"
 }
 
@@ -252,8 +252,8 @@ variable "netapp_ips" {
 # ------------------------------------------------------------------------------
 # UNIX Development SG variables
 # ------------------------------------------------------------------------------
-variable "unix_development_02_sg" {
+variable "rhel8_build_sg" {
   type        = list(any)
-  description = "List of Unix Development 02 Security Groups"
+  description = "List of rhel8_build Security Groups"
   default     = []
 }

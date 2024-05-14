@@ -7,7 +7,7 @@ account = "hdev"
 region  = "euw2"
 
 # Application details
-application = "unix-dev-02"
+application = "rhel8-build"
 environment = "development"
 
 instance_count = 1
@@ -15,7 +15,7 @@ instance_size = "t3.medium"
 
 availability_zones = ["eu-west-2a","eu-west-2b"]
 
-ansible_ssm_git_repo_name = "oracle-12-ami"
+ansible_ssm_git_repo_name = "rhel8-base-ami"
 ansible_ssm_git_repo_owner = "companieshouse"
 ansible_ssm_git_repo_path = "ansible/"
 ansible_ssm_git_repo_options = "branch:main"

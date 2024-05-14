@@ -28,7 +28,7 @@ data "aws_vpc" "vpc" {
   }
 }
 
-data "aws_ami" "oracle_12" {
+data "aws_ami" "rhel_8" {
   owners = [data.vault_generic_secret.account_ids.data["development"]]
 
   most_recent = true
@@ -110,8 +110,8 @@ data "template_cloudinit_config" "userdata_config" {
   }
 }
 
-data "aws_security_group" "unix_development_02_sg" {
-  for_each = toset(var.unix_development_02_sg)
+data "aws_security_group" "rhel8_build_sg" {
+  for_each = toset(var.rhel8_build_sg_sg)
   filter {
     name   = "group-name"
     values = [each.value]
