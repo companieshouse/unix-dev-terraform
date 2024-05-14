@@ -252,7 +252,7 @@ variable "netapp_ips" {
 # ------------------------------------------------------------------------------
 # UNIX Development SG variables
 # ------------------------------------------------------------------------------
-variable "unix_centos7_build_sg" {
+variable "centos7_build_sg" {
   type        = list(any)
   description = "List of Unix Development 02 Security Groups"
   default     = []

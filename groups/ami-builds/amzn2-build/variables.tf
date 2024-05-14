@@ -252,7 +252,7 @@ variable "netapp_ips" {
 # ------------------------------------------------------------------------------
 # UNIX Development SG variables
 # ------------------------------------------------------------------------------
-variable "unix_amzn2_build_sg" {
+variable "amzn2_build_sg" {
   type        = list(any)
   description = "List of amzn2-build Security Groups"
   default     = []
