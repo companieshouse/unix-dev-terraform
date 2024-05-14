@@ -56,7 +56,7 @@ module "ec2_security_group" {
 resource "aws_instance" "ec2" {
   count = var.instance_count
 
-  ami = var.ami_id == null ? data.aws_ami.oracle_12.id : var.ami_id
+  ami = var.ami_id == null ? data.aws_ami.rhel_6.id : var.ami_id
 
   key_name      = aws_key_pair.ec2_keypair.key_name
   instance_type = var.instance_size
