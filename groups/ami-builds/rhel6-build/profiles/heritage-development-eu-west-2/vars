@@ -7,7 +7,7 @@ account = "hdev"
 region  = "euw2"
 
 # Application details
-application = "rhel6_build"
+application = "rhel6-build"
 environment = "development"
 
 instance_count = 1

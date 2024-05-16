@@ -70,7 +70,7 @@ variable "domain_name" {
 # ------------------------------------------------------------------------------
 variable "ami_name" {
   type        = string
-  default     = "rhel8-base-ami-*"
+  default     = "rhel8-base-*"
   description = "Name of the AMI to use in the Auto Scaling configuration for email servers"
 }
 

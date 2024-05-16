@@ -110,7 +110,7 @@ data "template_cloudinit_config" "userdata_config" {
   }
 }
 
-data "aws_security_group" "cnetos7_build_sg" {
+data "aws_security_group" "centos7_build_sg" {
   for_each = toset(var.centos7_build_sg)
   filter {
     name   = "group-name"

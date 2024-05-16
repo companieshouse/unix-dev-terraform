@@ -70,7 +70,7 @@ variable "domain_name" {
 # ------------------------------------------------------------------------------
 variable "ami_name" {
   type        = string
-  default     = "amzn2-base-ami-*"
+  default     = "amzn2-base-*"
   description = "Name of the AMI to use in the Auto Scaling configuration for email servers"
 }
 
