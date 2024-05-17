@@ -122,6 +122,6 @@ data "vault_generic_secret" "chs_subnet" {
   path = "aws-accounts/network/${var.aws_account}/chs/application-subnets"
 }
 
-# data "vault_generic_secret" "sns_url" {
-#   path = "applications/${var.aws_account}-${var.aws_region}/monitoring"
-# }
+data "vault_generic_secret" "sns_url" {
+  path = "applications/${var.aws_account}-${var.aws_region}/unix-development/monitoring"
+}
