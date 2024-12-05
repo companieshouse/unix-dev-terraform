@@ -10,15 +10,15 @@ data "vault_generic_secret" "kms_key_alias" {
   path = "applications/${var.aws_account}-${var.aws_region}/e5"
 }
 
-data "aws_route53_zone" "e5_lfp" {
+data "aws_route53_zone" "unix_dev_01" {
   name   = local.dns_zone
-  vpc_id = data.aws_vpc.finance.id
+  vpc_id = data.aws_vpc.heritage-development.id
 }
 
 data "aws_vpc" "heritage-development" {
   filter {
     name   = "tag:Name"
-    values = ["vpc-${var.environment}"]
+    values = ["vpc-${var.aws_account}"]
   }
 }
 
@@ -29,7 +29,7 @@ data "vault_generic_secret" "internal_cidrs" {
 data "aws_subnets" "application" {
   filter {
     name   = "vpc-id"
-    values = [data.aws_vpc.id]
+    values = [data.aws_vpc.heritage-development.id]
   }
 
   filter {
@@ -74,9 +74,9 @@ data "vault_generic_secret" "shared_services_s3" {
 }
 
 data "vault_generic_secret" "sns_email" {
-  path = "/applications/${var.aws_account}-${var.aws_region}/sns"
+  path = "/applications/${var.aws_account}-${var.aws_region}/monitoring"
 }
 
 data "vault_generic_secret" "sns_url" {
-  path = "/applications/${var.aws_account}-${var.aws_region}/sns"
+  path = "/applications/${var.aws_account}-${var.aws_region}/monitoring/"
 }
