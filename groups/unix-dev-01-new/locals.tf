@@ -21,7 +21,6 @@ locals {
   ssm_kms_key_id         = local.security_kms_keys_data.session-manager-kms-key-arn
 
   account_ids_secrets = jsondecode(data.vault_generic_secret.account_ids.data_json)
-  e5_lfp_ami_owner_id = local.account_ids_secrets["shared-services"]
 
   kms_key       = data.vault_generic_secret.kms_key_alias.data
   kms_key_alias = local.kms_key["kms_key_alias"]

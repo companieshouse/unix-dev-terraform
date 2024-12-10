@@ -7,7 +7,7 @@ data "aws_kms_alias" "ebs" {
 }
 
 data "vault_generic_secret" "kms_key_alias" {
-  path = "applications/${var.aws_account}-${var.aws_region}/${var.service_subtype}"
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.service}/${var.service_subtype}"
 }
 
 data "aws_vpc" "heritage-development" {
@@ -21,8 +21,6 @@ data "aws_route53_zone" "unix_dev_01" {
   name   = local.dns_zone
   vpc_id = data.aws_vpc.heritage-development.id
 }
-
-
 
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"

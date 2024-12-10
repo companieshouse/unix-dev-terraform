@@ -121,7 +121,7 @@ variable "default_log_retention_in_days" {
 variable "service" {
   type        = string
   description = "The service name to be used when creating AWS resources."
-  default     = "unix-development"
+
 }
 
 variable "service_subtype" {
