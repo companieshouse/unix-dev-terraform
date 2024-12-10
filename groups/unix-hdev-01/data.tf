@@ -1,127 +1,91 @@
-# ------------------------------------------------------------------------------
-# Data
-# ------------------------------------------------------------------------------
-data "aws_caller_identity" "current" {}
-
-data "vault_generic_secret" "account_ids" {
-  path = "aws-accounts/account-ids"
+data "aws_ec2_managed_prefix_list" "administration_cidr_ranges" {
+  name = "administration-cidr-ranges"
 }
 
+data "aws_kms_alias" "ebs" {
+  name = local.kms_key_alias
+}
 
-data "aws_subnet_ids" "data" {
-  vpc_id = data.aws_vpc.vpc.id
+data "vault_generic_secret" "kms_key_alias" {
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.service}/${var.service_subtype}"
+}
+
+data "aws_vpc" "heritage-development" {
   filter {
     name   = "tag:Name"
-    values = ["sub-data-*"]
+    values = ["vpc-${var.aws_account}"]
   }
 }
 
-data "aws_subnet" "data_subnets" {
-  for_each = data.aws_subnet_ids.data.ids
-
-  id = each.value
-}
-
-data "aws_vpc" "vpc" {
-  tags = {
-    Name = "vpc-${var.aws_account}"
-  }
-}
-
-data "aws_ami" "oracle_12" {
-  owners = [data.vault_generic_secret.account_ids.data["development"]]
-
-  most_recent = true
-
-  filter {
-    name = "name"
-    values = [
-      var.ami_name,
-    ]
-  }
-
-  filter {
-    name = "state"
-    values = [
-      "available",
-    ]
-  }
+data "aws_route53_zone" "unix_dev_01" {
+  name   = local.dns_zone
+  vpc_id = data.aws_vpc.heritage-development.id
 }
 
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
 }
 
-data "vault_generic_secret" "ec2_data" {
-  path = "applications/${var.aws_account}-${var.aws_region}/unix-development/${var.application}/ec2"
+data "aws_subnets" "application" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.heritage-development.id]
+  }
+
+  filter {
+    name   = "tag:Name"
+    values = [var.application_subnet_pattern]
+  }
+}
+
+data "aws_subnet" "application" {
+  count = length(data.aws_subnets.application.ids)
+  id    = tolist(data.aws_subnets.application.ids)[count.index]
+}
+
+data "aws_ami" "unix_dev_ami" {
+  most_recent = true
+  name_regex  = "^rhel9-base-\\d.\\d.\\d"
+
+  filter {
+    name   = "name"
+    values = ["rhel9-base-${var.ami_version_pattern}"]
+  }
+
+  filter {
+    name  = "owner-id"
+    values = ["${local.ami_owner_id}"]
+  }
+}
+
+data "vault_generic_secret" "ami_owner" {
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/${var.service_subtype}"
+}
+
+data "vault_generic_secret" "account_ids" {
+  path = "aws-accounts/account-ids"
 }
 
 data "vault_generic_secret" "kms_keys" {
   path = "aws-accounts/${var.aws_account}/kms"
 }
 
-data "vault_generic_secret" "security_kms_keys" {
-  path = "aws-accounts/security/kms"
+data "vault_generic_secret" "security_s3_buckets" {
+  path = "aws-accounts/security/s3"
 }
 
-data "aws_kms_key" "ebs" {
-  key_id = "alias/${var.account}/${var.region}/ebs"
+data "vault_generic_secret" "security_kms_keys" {
+  path = "aws-accounts/security/kms"
 }
 
 data "vault_generic_secret" "shared_services_s3" {
   path = "aws-accounts/shared-services/s3"
 }
 
-data "vault_generic_secret" "security_s3_buckets" {
-  path = "aws-accounts/security/s3"
-}
-
-data "vault_generic_secret" "ssm" {
-  path = "aws-accounts/${var.aws_account}/ssm"
-}
-
-data "aws_route53_zone" "private_zone" {
-  name         = local.internal_fqdn
-  private_zone = true
-}
-
-data "template_file" "userdata" {
-  template = file("${path.module}/templates/user_data.tpl")
-
-  count = var.instance_count
-
-  vars = {
-    ENVIRONMENT          = title(var.environment)
-    APPLICATION_NAME     = var.application
-    ANSIBLE_INPUTS       = jsonencode(merge(local.ansible_inputs, { hostname = format("%s", var.application) }))
-    ISCSI_INITIATOR_NAME = local.iscsi_initiator_names[count.index]
-  }
-}
-
-data "template_cloudinit_config" "userdata_config" {
-  count = var.instance_count
-
-  gzip          = true
-  base64_encode = true
-
-  part {
-    content_type = "text/x-shellscript"
-    content      = data.template_file.userdata[count.index].rendered
-  }
-}
-
-data "aws_security_group" "unix_development_01_sg" {
-  for_each = toset(var.unix_development_01_sg)
-  filter {
-    name   = "group-name"
-    values = [each.value]
-  }
-}
-
-data "vault_generic_secret" "chs_subnet" {
-  path = "aws-accounts/network/${var.aws_account}/chs/application-subnets"
+data "vault_generic_secret" "sns_email" {
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
 }
 
 data "vault_generic_secret" "sns_url" {
-  path = "applications/${var.aws_account}-${var.aws_region}/unix-development/monitoring"
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
 }

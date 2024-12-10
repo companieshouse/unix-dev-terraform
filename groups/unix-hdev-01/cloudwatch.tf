@@ -1,59 +1,63 @@
-module "cloudwatch-alarms" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ec2-cloudwatch-alarms?ref=tags/1.0.123"
-  count  = var.instance_count
+resource "aws_cloudwatch_metric_alarm" "uninx_dev_01_server_cpu95" {
+  alarm_name                = "WARNING-unix-dev-01-CPUUtilization"
+  evaluation_periods        = "1"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  metric_name               = "CPUUtilization"
+  namespace                 = "UNIX-DEV-01/EC2"
+  period                    = "60"
+  statistic                 = "Maximum"
+  threshold                 = "95"
+  alarm_description         = "This metric monitors ec2 cpu utilization system"
+  insufficient_data_actions = []
+  alarm_actions             = [aws_sns_topic.unix_dev_01.arn]
+  ok_actions                = [aws_sns_topic.unix_dev_01.arn]
+}
 
-  name_prefix               = "unix-dev-01"
-  namespace                 = var.cloudwatch_namespace
-  instance_id               = aws_instance.ec2[count.index].id
-  status_evaluation_periods = "3"
-  status_statistics_period  = "60"
+resource "aws_cloudwatch_metric_alarm" "unix_dev_01_server_StatusCheckFailed" {
+  alarm_name                = "CRITICAL-unxi-dev-01-StatusCheckFailed"
+  evaluation_periods        = "1"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  metric_name               = "StatusCheckFailed"
+  namespace                 = "UNIX-DEV-01/EC2"
+  period                    = "300"
+  statistic                 = "Maximum"
+  threshold                 = "1"
+  alarm_description         = "This metric monitors StatusCheckFailed"
+  insufficient_data_actions = []
+  alarm_actions             = [aws_sns_topic.unix_dev_01.arn]
+  ok_actions                = [aws_sns_topic.unix_dev_01.arn]
+}
 
-  cpuutilization_evaluation_periods = "2"
-  cpuutilization_statistics_period  = "60"
-  cpuutilization_threshold          = "75" # Percentage
+resource "aws_cloudwatch_metric_alarm" "unix_dev_01_server_disk_space" {
+  alarm_name          = "CRITICAL-unix-dev-01-disk-space"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  metric_name         = "disk_used_percent"
+  namespace           = "UNIX-DEV-01/EC2"
+  period              = "600"
+  evaluation_periods  = "1"
+  statistic           = "Average"
+  threshold           = "90"
+  alarm_description   = "The disk space average precetage is over 90% for the last 10 minutes"
+  alarm_actions       = [aws_sns_topic.unix_dev_01.arn]
+  ok_actions          = [aws_sns_topic.unix_dev_01.arn]
+  dimensions = {
+    path         = "*"
+  }
+}
 
-  enable_disk_alarms = true
-  disk_devices = [
-    {
-      instance_device_mount_path = "/"
-      instance_device_location   = "xvda2"
-      instance_device_fstype     = "xfs"
-    },
-    {
-      instance_device_mount_path = "/mnt/netapp"
-      instance_device_location   = "vg_unix_dev_test-lv_unix_dev_test"
-      instance_device_fstype     = "xfs"
-    }
-  ]
-  disk_evaluation_periods = "3"
-  disk_statistics_period  = "120"
-  low_disk_threshold      = "75" # Percentage
-
-  enable_memory_alarms       = true
-  memory_evaluation_periods  = "2"
-  memory_statistics_period   = "120"
-  available_memory_threshold = "10" # Percentage
-  used_memory_threshold      = "80" # Percentage
-  used_swap_memory_threshold = "50" # Percentage
-
-  alarm_actions = [
-    module.cloudwatch_sns_notifications.sns_topic_arn
-  ]
-
-  ok_actions = [
-    module.cloudwatch_sns_notifications.sns_topic_arn
-  ]
-
-  depends_on = [
-    aws_instance.ec2,
-    module.cloudwatch_sns_notifications
-  ]
-
-  tags = merge(
-    local.default_tags,
-    tomap({
-      "ServiceTeam" = "Linux/Storage",
-      "Terraform"   = true
-    })
-  )
+resource "aws_cloudwatch_metric_alarm" "unix_dev_01_server_root_disk_space" {
+  alarm_name          = "WARNING-unix-dev-01-root-disk-space"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  metric_name         = "disk_used_percent"
+  namespace           = "UNIX-DEV-01/EC2"
+  period              = "600"
+  evaluation_periods  = "1"
+  statistic           = "Average"
+  threshold           = "80"
+  alarm_description   = "The disk space average precetage is over 80% for the last 10 minutes"
+  alarm_actions       = [aws_sns_topic.unix_dev_01.arn]
+  ok_actions          = [aws_sns_topic.unix_dev_01.arn]
+  dimensions = {
+    path         = "/"
+  }
 }
