@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "unix_dev_01" {
-  name = "e5-lfp"
+  name = "unix-dev-01"
 }
 
 resource "aws_sns_topic_subscription" "unix_dev_01_system_Subscription" {
