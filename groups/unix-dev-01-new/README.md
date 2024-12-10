@@ -1,4 +1,4 @@
-# e5-lfp - E5 Application Late Filing Penalties Framework
+# unix-dev-01 - UNIX dev/test server
 Terraform for provisioning the E5 application's Late Filing Penalties Framework environment.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -20,12 +20,12 @@ Terraform for provisioning the E5 application's Late Filing Penalties Framework 
 
 | Name | Type |
 |------|------|
-| [aws_instance.e5_lfp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
-| [aws_route53_record.e5_lfp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_security_group.e5_lfp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_vpc_security_group_ingress_rule.e5_lfp_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
-| [aws_vpc_security_group_egress_rule.e5_lfp_all_out](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
-| [aws_ami.e5_lfp_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_instance.unix-dev-01](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
+| [aws_route53_record.unix-dev-01](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_security_group.unix-dev-01](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_vpc_security_group_ingress_rule.unix-dev-01_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_vpc_security_group_egress_rule.unix-dev-01_all_out](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_ami.unix-dev-01_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_ec2_managed_prefix_list.shared_services_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_managed_prefix_list) | data source |
 | [aws_subnet.application](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 | [aws_subnets.application](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
@@ -85,7 +85,7 @@ This method is no longer in use, but used environment variables `VAULT_ADDR` and
 | <a name="local_common_resource_name"></a> [common_resource_name](#local\_common_resource_name) | Common name format for resources |
 | <a name="local_common_tags"></a> [common_tags](#local\_common_tags) | Common tags to be applied to all resources |
 | <a name="local_dns_zone"></a> [dns_zone](#local\_dns_zone) | The DNS zone for the environment |
-| <a name="local_e5_lfp_ami_owner_id"></a> [e5_lfp_ami_owner_id](#local\_e5_lfp_ami_owner_id) | E5 lfp AMI owner ID |
+| <a name="local_unix-dev-01_ami_owner_id"></a> [unix-dev-01_ami_owner_id](#local\_unix-dev-01_ami_owner_id) | E5 lfp AMI owner ID |
 | <a name="local_security_kms_keys_data"></a> [security_kms_keys_data](#local\_security_kms_keys_data) | Security KMS keys data from Vault |
 | <a name="local_security_s3_data"></a> [security_s3_data](#local\_security_s3_data) | Security S3 bucket data from Vault |
 | <a name="local_session_manager_bucket_name"></a> [session_manager_bucket_name](#local\_session_manager_bucket_name) | Session Manager S3 bucket name |
