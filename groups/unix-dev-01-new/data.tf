@@ -7,12 +7,7 @@ data "aws_kms_alias" "ebs" {
 }
 
 data "vault_generic_secret" "kms_key_alias" {
-  path = "applications/${var.aws_account}-${var.aws_region}/e5"
-}
-
-data "aws_route53_zone" "unix_dev_01" {
-  name   = local.dns_zone
-  vpc_id = data.aws_vpc.heritage-development.id
+  path = "applications/${var.aws_account}-${var.aws_region}/${var.service_subtype}"
 }
 
 data "aws_vpc" "heritage-development" {
@@ -21,6 +16,13 @@ data "aws_vpc" "heritage-development" {
     values = ["vpc-${var.aws_account}"]
   }
 }
+
+data "aws_route53_zone" "unix_dev_01" {
+  name   = local.dns_zone
+  vpc_id = data.aws_vpc.heritage-development.id
+}
+
+
 
 data "vault_generic_secret" "internal_cidrs" {
   path = "aws-accounts/network/internal_cidr_ranges"
@@ -45,12 +47,21 @@ data "aws_subnet" "application" {
 
 data "aws_ami" "unix_dev_ami" {
   most_recent = true
-  name_regex  = "^rhel8-base-ami-\\d.\\d.\\d"
+  name_regex  = "^rhel9-base-\\d.\\d.\\d"
 
   filter {
     name   = "name"
-    values = ["rhel8-base-ami-${var.ami_version_pattern}"]
+    values = ["rhel9-base-${var.ami_version_pattern}"]
   }
+
+  filter {
+    name  = "owner-id"
+    values = ["${local.ami_owner_id}"]
+  }
+}
+
+data "vault_generic_secret" "ami_owner" {
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/${var.service_subtype}"
 }
 
 data "vault_generic_secret" "account_ids" {
@@ -74,9 +85,9 @@ data "vault_generic_secret" "shared_services_s3" {
 }
 
 data "vault_generic_secret" "sns_email" {
-  path = "/applications/${var.aws_account}-${var.aws_region}/monitoring"
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
 }
 
 data "vault_generic_secret" "sns_url" {
-  path = "/applications/${var.aws_account}-${var.aws_region}/monitoring/"
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
 }

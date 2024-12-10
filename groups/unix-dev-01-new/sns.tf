@@ -15,7 +15,7 @@ resource "aws_sns_topic_subscription" "unix_dev_01_system_Subscription" {
 resource "aws_sns_topic_subscription" "unix_dev_01_system_Subscriptionhttps" {
   topic_arn = aws_sns_topic.unix_dev_01.arn
   protocol  = "https"
-  endpoint  = data.vault_generic_secret.sns_url.data["linux-url"]
+  endpoint  = data.vault_generic_secret.sns_url.data["linux_url"]
 
   depends_on = [
     aws_sns_topic.unix_dev_01

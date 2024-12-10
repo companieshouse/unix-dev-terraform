@@ -110,7 +110,7 @@ variable "application_subnet_pattern" {
 variable "dns_zone_suffix" {
   type        = string
   description = "The common DNS hosted zone suffix used across accounts."
-  default     = "finance.aws.internal"
+  default     = "heritage.aws.internal"
 }
 
 variable "default_log_retention_in_days" {
