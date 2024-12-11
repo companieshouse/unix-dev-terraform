@@ -14,6 +14,8 @@ resource "aws_instance" "unix_dev_01" {
     ServiceSubType = var.service_subtype
     Team           = var.team
     Backup         = true
+    Domain         = "${var.environment}.${var.dns_zone_suffix}"
+    Hostname       = "${var.service_subtype}"
   }
 
   root_block_device {
@@ -34,22 +36,23 @@ resource "aws_instance" "unix_dev_01" {
 
   }
 
-  # ebs_block_device {
-  #   device_name           = var.ebs_device_name
-  #   volume_size           = var.data_volume_size_gib
-  #   encrypted             = var.encrypt_ebs_block_device
-  #   iops                  = var.ebs_block_device_iops
-  #   kms_key_id            = data.aws_kms_alias.ebs.target_key_arn
-  #   throughput            = var.ebs_block_device_throughput
-  #   volume_type           = var.ebs_block_device_volume_type
-  #   delete_on_termination = var.ebs_delete_on_termination
-  #   tags = {
-  #     Name           = "${local.common_resource_name}-${count.index + 1}-data"
-  #     Environment    = var.environment
-  #     Service        = var.service
-  #     ServiceSubType = var.service_subtype
-  #     Team           = var.team
-  #     Backup         = true
-  #   }
-  #}
+  ebs_block_device {
+    device_name           = var.ebs_device_name
+    volume_size           = var.data_volume_size_gib
+    encrypted             = var.encrypt_ebs_block_device
+    iops                  = var.ebs_block_device_iops
+    kms_key_id            = data.aws_kms_alias.ebs.target_key_arn
+    throughput            = var.ebs_block_device_throughput
+    volume_type           = var.ebs_block_device_volume_type
+    delete_on_termination = var.ebs_delete_on_termination
+    tags = {
+      Name           = "${local.common_resource_name}-${count.index + 1}-data"
+      Environment    = var.environment
+      Service        = var.service
+      ServiceSubType = var.service_subtype
+      Team           = var.team
+      Backup         = true
+    }
+  }
+    user_data = data.template_file.userdata[count.index].rendered
 }

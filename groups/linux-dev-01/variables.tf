@@ -28,7 +28,7 @@ variable "instance_count" {
 variable "root_volume_size" {
   type        = number
   description = "The size of the root volume in gibibytes (GiB)."
-  default     = 20
+  default     = 40
 }
 
 variable "encrypt_root_block_device" {

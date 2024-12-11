@@ -89,3 +89,15 @@ data "vault_generic_secret" "sns_email" {
 data "vault_generic_secret" "sns_url" {
   path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
 }
+
+data "template_file" "userdata" {
+  template = file("${path.module}/templates/user_data.tpl")
+
+  count = var.instance_count
+
+  vars = { 
+    ENVIRONMENT          = title(var.environment)
+    APPLICATION_NAME     = var.service_subtype
+    ANSIBLE_INPUTS       = jsonencode(merge(local.ansible_inputs, { hostname = format("%s-%02d", var.service_subtype) }))
+  }
+}
