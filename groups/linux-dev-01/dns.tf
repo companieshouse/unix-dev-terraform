@@ -1,9 +1,9 @@
-resource "aws_route53_record" "unix_dev_01" {
+resource "aws_route53_record" "linux_dev_01" {
   count = var.instance_count
 
-  zone_id = data.aws_route53_zone.unix_dev_01.zone_id
+  zone_id = data.aws_route53_zone.linux_dev_01.zone_id
   name    = "${var.service_subtype}"
   type    = "A"
   ttl     = 300
-  records = [aws_instance.unix_dev_01[0].private_ip]
+  records = [aws_instance.linux_dev_01[0].private_ip]
 }

@@ -12,6 +12,6 @@ instance_type = "t2.medium"
 root_volume_size = 40
 data_volume_size_gib = 20
 service = "unix-development"
-service_subtype = "linux-dev-01"
+service_subtype = "linux-dev-02"
 application_subnet_pattern = "sub-application-*"
 default_log_retention_in_days = "7"
