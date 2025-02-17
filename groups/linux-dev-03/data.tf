@@ -17,7 +17,7 @@ data "aws_vpc" "heritage-development" {
   }
 }
 
-data "aws_route53_zone" "linux_dev_02" {
+data "aws_route53_zone" "linux_dev_03" {
   name   = local.dns_zone
   vpc_id = data.aws_vpc.heritage-development.id
 }
