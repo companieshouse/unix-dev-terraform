@@ -8,7 +8,7 @@ resource "aws_instance" "linux_dev_01" {
   iam_instance_profile   = module.instance_profile.aws_iam_instance_profile.name
   vpc_security_group_ids = [aws_security_group.linux_dev_01.id]
   tags = {
-    Name           = "${local.common_resource_name}-${count.index + 1}"
+    Name           = local.common_resource_name
     Environment    = var.environment
     Service        = var.service
     ServiceSubType = var.service_subtype
@@ -26,7 +26,7 @@ resource "aws_instance" "linux_dev_01" {
     throughput  = var.root_block_device_throughput
     volume_type = var.root_block_device_volume_type
     tags = {
-      Name           = "${local.common_resource_name}-${count.index + 1}-root"
+      Name           = "${local.common_resource_name}-root"
       Environment    = var.environment
       Service        = var.service
       ServiceSubType = var.service_subtype
@@ -46,7 +46,7 @@ resource "aws_instance" "linux_dev_01" {
     volume_type           = var.ebs_block_device_volume_type
     delete_on_termination = var.ebs_delete_on_termination
     tags = {
-      Name           = "${local.common_resource_name}-${count.index + 1}-data"
+      Name           = "${local.common_resource_name}-data"
       Environment    = var.environment
       Service        = var.service
       ServiceSubType = var.service_subtype
