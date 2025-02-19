@@ -73,7 +73,7 @@ Depending on the authentication method used for Vault, one of the following sets
 | <a name="input_hashicorp_vault_secret_id"></a> [hashicorp_vault_secret_id](#input\_hashicorp_vault_secret_id) | The secret identifier used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
 
 #### Token Authentication - **Deprecated**
- 
+
 This method is no longer in use, but used environment variables `VAULT_ADDR` and `VAULT_TOKEN`.
 
 ## Locals
@@ -90,4 +90,3 @@ This method is no longer in use, but used environment variables `VAULT_ADDR` and
 | <a name="local_security_s3_data"></a> [security_s3_data](#local\_security_s3_data) | Security S3 bucket data from Vault |
 | <a name="local_session_manager_bucket_name"></a> [session_manager_bucket_name](#local\_session_manager_bucket_name) | Session Manager S3 bucket name |
 | <a name="local_ssm_kms_key_id"></a> [ssm_kms_key_id](#local\_ssm_kms_key_id) | SSM KMS key ID |
-
