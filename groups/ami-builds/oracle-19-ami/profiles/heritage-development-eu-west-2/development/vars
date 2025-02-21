@@ -1,0 +1,17 @@
+# Account details
+
+aws_account = "heritage-development"
+aws_region  = "eu-west-2"
+environment = "development"
+dns_zone_suffix = "heritage.aws.internal"
+
+# Instance details
+
+instance_count = "1"
+instance_type = "t2.medium"
+root_volume_size = 40
+data_volume_size_gib = 20
+service = "unix-development"
+service_subtype = "oracle-19-build"
+application_subnet_pattern = "sub-application-*"
+default_log_retention_in_days = "7"
