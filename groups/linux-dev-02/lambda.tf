@@ -1,7 +1,7 @@
 module "stop_ec2_instance" {
   source                         = "diodonfrost/lambda-scheduler-stop-start/aws"
   name                           = "ec2_stop"
-  cloudwatch_schedule_expression = "cron(0 0 ? * FRI *)"
+  cloudwatch_schedule_expression = "cron(0 22 ? * FRI *)"
   schedule_action                = "stop"
   ec2_schedule                   = "true"
   scheduler_tag                  = {
@@ -13,7 +13,7 @@ module "stop_ec2_instance" {
 module "start_ec2_instance" {
   source                         = "diodonfrost/lambda-scheduler-stop-start/aws"
   name                           = "ec2_start"
-  cloudwatch_schedule_expression = "cron(0 8 ? * MON *)"
+  cloudwatch_schedule_expression = "cron(0 6 ? * MON *)"
   schedule_action                = "start"
   ec2_schedule                   = "true"
   scheduler_tag                  = {
