@@ -16,7 +16,6 @@ resource "aws_instance" "linux_dev_02" {
     Backup         = true
     Domain         = "${var.environment}.${var.dns_zone_suffix}"
     Hostname       = "${var.service_subtype}"
-    OOH            = false
   }
 
   root_block_device {
