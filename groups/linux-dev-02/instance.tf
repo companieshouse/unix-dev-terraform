@@ -8,14 +8,15 @@ resource "aws_instance" "linux_dev_02" {
   iam_instance_profile   = module.instance_profile.aws_iam_instance_profile.name
   vpc_security_group_ids = [aws_security_group.linux_dev_02.id]
   tags = {
-    Name           = local.common_resource_name
-    Environment    = var.environment
-    Service        = var.service
-    ServiceSubType = var.service_subtype
-    Team           = var.team
-    Backup         = true
-    Domain         = "${var.environment}.${var.dns_zone_suffix}"
-    Hostname       = "${var.service_subtype}"
+    Name            = local.common_resource_name
+    Environment     = var.environment
+    Service         = var.service
+    ServiceSubType  = var.service_subtype
+    Team            = var.team
+    Backup          = true
+    Domain          = "${var.environment}.${var.dns_zone_suffix}"
+    Hostname        = "${var.service_subtype}"
+    WorkingHoursOnly = true
   }
 
   root_block_device {
@@ -26,12 +27,13 @@ resource "aws_instance" "linux_dev_02" {
     throughput  = var.root_block_device_throughput
     volume_type = var.root_block_device_volume_type
     tags = {
-      Name           = "${local.common_resource_name}-root"
-      Environment    = var.environment
-      Service        = var.service
-      ServiceSubType = var.service_subtype
-      Team           = var.team
-      Backup         = true
+      Name            = "${local.common_resource_name}-root"
+      Environment     = var.environment
+      Service         = var.service
+      ServiceSubType  = var.service_subtype
+      Team            = var.team
+      Backup          = true
+
     }
 
   }
