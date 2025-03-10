@@ -82,14 +82,6 @@ data "vault_generic_secret" "shared_services_s3" {
   path = "aws-accounts/shared-services/s3"
 }
 
-data "vault_generic_secret" "sns_email" {
-  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
-}
-
-data "vault_generic_secret" "sns_url" {
-  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
-}
-
 data "template_file" "userdata" {
   template = file("${path.module}/templates/user_data.tpl")
 
