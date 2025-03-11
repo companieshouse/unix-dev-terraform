@@ -57,7 +57,7 @@ variable "root_block_device_volume_type" {
 
 variable "data_volume_size_gib" {
   type        = number
-  default     = 20
+  default     = 200
   description = "The EC2 instance data volume size in Gibibytes (GiB)"
 }
 
@@ -94,6 +94,36 @@ variable "ebs_block_device_volume_type" {
   default     = "gp3"
   description = "The type of EBS volume to provision"
   type        = string
+}
+
+variable "ora2_device_name" {
+  default     = "/dev/xvdd"
+  description = "The device name for the ebs device"
+  type        = string
+}
+
+variable "ora3_device_name" {
+  default     = "/dev/xvde"
+  description = "The device name for the ebs device"
+  type        = string
+}
+
+variable "ora4_device_name" {
+  default     = "/dev/xvdf"
+  description = "The device name for the ebs device"
+  type        = string
+}
+
+variable "ora5_device_name" {
+  default     = "/dev/xvdg"
+  description = "The device name for the ebs device"
+  type        = string
+}
+
+variable "ora_volume_size_gib" {
+  type        = number
+  default     = 5
+  description = "The EC2 instance data volume size in Gibibytes (GiB)"
 }
 
 variable "instance_type" {
