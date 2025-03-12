@@ -45,7 +45,7 @@ data "aws_subnet" "application" {
 
 data "aws_ami" "oracle_19_ami" {
   most_recent = true
-  name_regex  = "^oracle-19-ami-\\d.\\d.\\d"
+  name_regex  = "^oracle-19-ami-feature"
 
   filter {
     name   = "name"
