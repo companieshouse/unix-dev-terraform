@@ -24,9 +24,10 @@ locals {
 
   kms_key       = data.vault_generic_secret.kms_key_alias.data
   kms_key_alias = local.kms_key["kms_key_alias"]
-
-  ami_owner = data.vault_generic_secret.ami_owner.data
-  ami_owner_id = local.ami_owner["ami_owner"]
+  
+  ec2_ami_owner_data = data.vault_generic_secret.ami_owner.data
+  ec2_ami_owner      = local.ec2_ami_owner_data["ami_owner"]
+  ec2_ami_id = var.ec2_ami_id == "" ? data.aws_ami.rhel7_base_ami.id : var.ec2_ami_id
 
   ansible_inputs = {
     environment = var.environment

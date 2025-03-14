@@ -45,16 +45,11 @@ data "aws_subnet" "application" {
 
 data "aws_ami" "rhel7_base_ami" {
   most_recent = true
-  name_regex  = "^rhel7-base-\\d.\\d.\\d"
-
+  name_regex  = var.ec2_ami_name_regex
+  
   filter {
-    name   = "name"
-    values = ["rhel7-base-${var.ami_version_pattern}"]
-  }
-
-  filter {
-    name  = "owner-id"
-    values = ["${local.ami_owner_id}"]
+    name = "owner-id"
+    values = ["${local.ec2_ami_owner}"]
   }
 }
 
