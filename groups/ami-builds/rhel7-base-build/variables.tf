@@ -20,7 +20,7 @@ variable "ec2_ami_id" {
 }
 
 variable "ec2_ami_name_regex" {
-  default     = "^rhel7-base-\\d.\\d.\\d"
+  default     = "^rhel7-base-[0-9]{1}.[0-9]{1}.[0-9]{1}"
   description = "The regex pattern to use to lookup an AMI, when ec2_ami_id is empty"
   type        = string
 }

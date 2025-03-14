@@ -44,9 +44,9 @@ data "aws_subnet" "application" {
 }
 
 data "aws_ami" "rhel7_base_ami" {
-  most_recent = true
-  name_regex  = var.ec2_ami_name_regex
   
+  name_regex  = var.ec2_ami_name_regex
+  most_recent = true
   filter {
     name = "owner-id"
     values = ["${local.ec2_ami_owner}"]
