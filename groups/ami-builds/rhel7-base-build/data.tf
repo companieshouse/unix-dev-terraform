@@ -56,7 +56,11 @@ data "aws_ami" "rhel7_base_ami" {
 data "aws_ami" "feature" {
   count = local.use_feature_ami ? 1 : 0
   most_recent = true
-  owners      = ["416670754337"]
+  
+  filter {
+    name = "owner-id"
+    values = ["${local.ec2_ami_owner}"]
+  }
 
   filter {
     name   = "name"

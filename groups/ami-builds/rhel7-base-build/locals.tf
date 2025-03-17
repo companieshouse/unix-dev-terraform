@@ -14,7 +14,7 @@ locals {
   security_s3_data            = data.vault_generic_secret.security_s3_buckets.data
   session_manager_bucket_name = local.security_s3_data.session-manager-bucket-name
   
-  shared_services_s3_data = data.vault_generic_secret.shared_services_s3.data
+  shared_services_s3_data     = data.vault_generic_secret.shared_services_s3.data
   resources_bucket_name       = local.shared_services_s3_data["resources_bucket_name"]
 
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
@@ -26,9 +26,11 @@ locals {
   kms_key_alias = local.kms_key["kms_key_alias"]
   
   use_feature_ami    = var.ec2_ami_id == "" ? true : false
+  ec2_ami_id         = local.use_feature_ami ? data.aws_ami.feature[0].id : var.ec2_ami_id
+
   ec2_ami_owner_data = data.vault_generic_secret.ami_owner.data
   ec2_ami_owner      = local.ec2_ami_owner_data["ami_owner"]
-  ec2_ami_id         = local.use_feature_ami ? data.aws_ami.feature[0].id : var.ec2_ami_id
+
 
   ansible_inputs = {
     environment = var.environment
