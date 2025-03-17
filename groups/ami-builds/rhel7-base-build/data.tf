@@ -59,7 +59,7 @@ data "aws_ami" "feature" {
   
   filter {
     name = "owner-id"
-    values = ["${local.ec2_ami_owner}"]
+    values = [local.ec2_ami_owner}]
   }
 
   filter {
