@@ -53,6 +53,17 @@ data "aws_ami" "rhel7_base_ami" {
   }
 }
 
+data "aws_ami" "feature" {
+  count = local.use_feature_ami ? 1 : 0
+  most_recent = true
+  owners      = ["416670754337"]
+
+  filter {
+    name   = "name"
+    values = ["rhel7-base-feature"]
+  }
+}
+
 data "vault_generic_secret" "ami_owner" {
   path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/ami-builds/${var.service_subtype}"
 }

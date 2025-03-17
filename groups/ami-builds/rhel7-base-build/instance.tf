@@ -1,7 +1,7 @@
 resource "aws_instance" "rhel7_base_build" {
   count = var.instance_count
 
-  ami           = data.aws_ami.rhel7_base_ami.id
+  ami           = local.use_feature_ami
   instance_type = var.instance_type
   subnet_id     = element(local.application_subnet_ids_by_az, count.index) # use 'element' function for wrap-around behaviour
 
