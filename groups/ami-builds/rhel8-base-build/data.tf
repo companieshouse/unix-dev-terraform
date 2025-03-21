@@ -44,17 +44,26 @@ data "aws_subnet" "application" {
 }
 
 data "aws_ami" "rhel8_base_ami" {
+  name_regex  = var.ec2_ami_name_regex
   most_recent = true
-  name_regex  = "^rhel8-base-\\d.\\d.\\d"
-
+  
   filter {
-    name   = "name"
-    values = ["rhel8-base-${var.ami_version_pattern}"]
+    name = "owner-id"
+    values = ["${local.ec2_ami_owner}"]
+  }
+}
+
+data "aws_ami" "feature" {
+  most_recent = true
+  
+  filter {
+    name = "owner-id"
+    values = [local.ec2_ami_owner]
   }
 
   filter {
-    name  = "owner-id"
-    values = ["${local.ami_owner_id}"]
+    name   = "name"
+    values = ["rhel8-base-feature"]
   }
 }
 

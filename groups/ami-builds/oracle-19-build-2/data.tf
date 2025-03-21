@@ -44,20 +44,28 @@ data "aws_subnet" "application" {
 }
 
 data "aws_ami" "oracle_19_ami" {
+  name_regex  = var.ec2_ami_name_regex
   most_recent = true
-  name_regex  = "^oracle-19-ami-\\d.\\d.\\d"
-
+  
   filter {
-    name   = "name"
-    values = ["oracle-19-ami-${var.ami_version_pattern}"]
-  }
-
-  filter {
-    name  = "owner-id"
-    values = ["${local.ami_owner_id}"]
+    name = "owner-id"
+    values = ["${local.ec2_ami_owner}"]
   }
 }
 
+data "aws_ami" "feature" {
+  most_recent = true
+  
+  filter {
+    name = "owner-id"
+    values = [local.ec2_ami_owner]
+  }
+
+  filter {
+    name   = "name"
+    values = ["oracle-19-ami-feature"]
+  }
+}
 data "vault_generic_secret" "ami_owner" {
   path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/ami-builds/${var.service_subtype}"
 }

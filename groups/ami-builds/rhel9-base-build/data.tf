@@ -44,19 +44,29 @@ data "aws_subnet" "application" {
 }
 
 data "aws_ami" "rhel9_base_ami" {
+  name_regex  = var.ec2_ami_name_regex
   most_recent = true
-  name_regex  = "^rhel9-base-\\d.\\d.\\d"
+  
+  filter {
+    name = "owner-id"
+    values = ["${local.ec2_ami_owner}"]
+  }
+}
+
+data "aws_ami" "feature" {
+  most_recent = true
+  
+  filter {
+    name = "owner-id"
+    values = [local.ec2_ami_owner]
+  }
 
   filter {
     name   = "name"
-    values = ["rhel9-base-${var.ami_version_pattern}"]
-  }
-
-  filter {
-    name  = "owner-id"
-    values = ["${local.ami_owner_id}"]
+    values = ["rhel9-base-feature"]
   }
 }
+
 
 data "vault_generic_secret" "ami_owner" {
   path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/ami-builds/${var.service_subtype}"

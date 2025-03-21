@@ -1,7 +1,7 @@
 resource "aws_instance" "oracle_19_build" {
   count = var.instance_count
 
-  ami           = data.aws_ami.oracle_19_ami.id
+  ami           = local.ami_type
   instance_type = var.instance_type
   subnet_id     = element(local.application_subnet_ids_by_az, count.index) # use 'element' function for wrap-around behaviour
 
