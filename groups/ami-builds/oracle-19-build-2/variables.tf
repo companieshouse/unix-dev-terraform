@@ -13,6 +13,18 @@ variable "environment" {
   description = "The environment name to be used when provisioning AWS resources."
 }
 
+variable "ec2_ami_id" {
+  default     = ""
+  description = "The AMI id to use when launching instances in the ASG; when set, will be preferred over the result of an AMI lookup"
+  type        = string
+}
+
+variable "ec2_ami_name_regex" {
+  default     = "^oracle-19-ami-[0-9]{1}.[0-9]{1}.[0-9]{1}"
+  description = "The regex pattern to use to lookup an AMI, when ec2_ami_id is empty"
+  type        = string
+}
+
 variable "ami_version_pattern" {
   type        = string
   description = "The pattern to use when filtering for AMI version by name."
