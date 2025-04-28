@@ -25,7 +25,7 @@ locals {
   kms_key       = data.vault_generic_secret.kms_key_alias.data
   kms_key_alias = local.kms_key["kms_key_alias"]
 
-  ami_type    = var.ec2_ami_id == "feature" ? data.aws_ami.feature.id : data.aws_ami.rhel9_base_ami.id
+  ami_type    = var.ec2_ami_id == "" ? data.aws_ami.feature.id : data.aws_ami.rhel9_base_ami.id
 
   ec2_ami_owner_data = data.vault_generic_secret.ami_owner.data
   ec2_ami_owner      = local.ec2_ami_owner_data["ami_owner"]
