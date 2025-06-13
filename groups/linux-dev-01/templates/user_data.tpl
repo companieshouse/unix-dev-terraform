@@ -10,3 +10,6 @@ cat <<EOF >inputs.json
 ${ANSIBLE_INPUTS}
 EOF
 /usr/local/bin/ansible-playbook /root/deployment.yml -e "@inputs.json"
+
+#set hostname
+hostnamectl set-hostname ${HOSTNAME} --static
