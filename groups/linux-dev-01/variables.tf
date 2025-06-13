@@ -134,3 +134,9 @@ variable "team" {
   description = "The team name for ownership of this service."
   default     = "Linux/Storage"
 }
+
+variable "monitoring" {
+  type        = bool
+  description = "Variable to determine is monitoring is enabled"
+  default     = false
+}
