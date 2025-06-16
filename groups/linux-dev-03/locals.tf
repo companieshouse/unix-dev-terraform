@@ -14,7 +14,7 @@ locals {
   security_s3_data            = data.vault_generic_secret.security_s3_buckets.data
   session_manager_bucket_name = local.security_s3_data.session-manager-bucket-name
   
-  shared_services_s3_data = data.vault_generic_secret.shared_services_s3.data
+  shared_services_s3_data     = data.vault_generic_secret.shared_services_s3.data
   resources_bucket_name       = local.shared_services_s3_data["resources_bucket_name"]
 
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
@@ -35,7 +35,6 @@ locals {
     environment = var.environment
     region      = var.aws_region
     fqdn        = "${var.service_subtype}.${var.environment}.${var.dns_zone_suffix}"
-    hostname    = var.service_subtype    
   }
 
 
