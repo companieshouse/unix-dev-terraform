@@ -97,7 +97,6 @@ data "template_file" "userdata" {
 
   vars = { 
     ENVIRONMENT          = title(var.environment)
-    APPLICATION_NAME     = var.service_subtype
-    ANSIBLE_INPUTS       = jsonencode(merge(local.ansible_inputs, { hostname = format("%s", var.service_subtype) }))
+    HOSTNAME             = local.ansible_inputs.fqdn
   }
 }

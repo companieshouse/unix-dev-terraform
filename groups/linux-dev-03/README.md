@@ -1,5 +1,5 @@
 # linux-dev-03 - linux dev/test server
-
+Terraform for provisioning the E5 application's Late Filing Penalties Framework environment.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -20,12 +20,12 @@
 
 | Name | Type |
 |------|------|
-| [aws_instance.linux-dev-02](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
-| [aws_route53_record.linux-dev-02](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
-| [aws_security_group.linux-dev-02](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_vpc_security_group_ingress_rule.linux-dev-02_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
-| [aws_vpc_security_group_egress_rule.linux-dev-02_all_out](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
-| [aws_ami.linux-dev-02_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_instance.linux-dev-03](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
+| [aws_route53_record.linux-dev-03](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_security_group.linux-dev-03](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_vpc_security_group_ingress_rule.linux-dev-03_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_vpc_security_group_egress_rule.linux-dev-03_all_out](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_ami.linux-dev-03_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_ec2_managed_prefix_list.shared_services_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_managed_prefix_list) | data source |
 | [aws_subnet.application](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 | [aws_subnets.application](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
@@ -73,7 +73,7 @@ Depending on the authentication method used for Vault, one of the following sets
 | <a name="input_hashicorp_vault_secret_id"></a> [hashicorp_vault_secret_id](#input\_hashicorp_vault_secret_id) | The secret identifier used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
 
 #### Token Authentication - **Deprecated**
-
+ 
 This method is no longer in use, but used environment variables `VAULT_ADDR` and `VAULT_TOKEN`.
 
 ## Locals
@@ -85,8 +85,9 @@ This method is no longer in use, but used environment variables `VAULT_ADDR` and
 | <a name="local_common_resource_name"></a> [common_resource_name](#local\_common_resource_name) | Common name format for resources |
 | <a name="local_common_tags"></a> [common_tags](#local\_common_tags) | Common tags to be applied to all resources |
 | <a name="local_dns_zone"></a> [dns_zone](#local\_dns_zone) | The DNS zone for the environment |
-| <a name="local_linux-dev-02_ami_owner_id"></a> [linux-dev-02_ami_owner_id](#local\_linux-dev-02_ami_owner_id) | E5 lfp AMI owner ID |
+| <a name="local_linux-dev-03_ami_owner_id"></a> [linux-dev-03_ami_owner_id](#local\_linux-dev-03_ami_owner_id) | E5 lfp AMI owner ID |
 | <a name="local_security_kms_keys_data"></a> [security_kms_keys_data](#local\_security_kms_keys_data) | Security KMS keys data from Vault |
 | <a name="local_security_s3_data"></a> [security_s3_data](#local\_security_s3_data) | Security S3 bucket data from Vault |
 | <a name="local_session_manager_bucket_name"></a> [session_manager_bucket_name](#local\_session_manager_bucket_name) | Session Manager S3 bucket name |
 | <a name="local_ssm_kms_key_id"></a> [ssm_kms_key_id](#local\_ssm_kms_key_id) | SSM KMS key ID |
+
