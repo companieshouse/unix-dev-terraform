@@ -31,10 +31,10 @@ locals {
   ec2_ami_owner      = local.ec2_ami_owner_data["ami_owner"]
 
   ansible_inputs = {
-    environment = var.environment
-    region      = var.aws_region
-    fqdn        = "${var.service_subtype}.${var.environment}.${var.dns_zone_suffix}"
-    hostname    = var.service_subtype    
+    environment     = var.environment
+    region          = var.aws_region
+    fqdn            = "${var.service_subtype}.${var.environment}.${var.dns_zone_suffix}"
+    iscsi_initiator = data.vault_generic_secret.iscsi_initiator_name.data["iscsi_initiator_names"]
   }
 
 

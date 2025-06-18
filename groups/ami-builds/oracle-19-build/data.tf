@@ -91,6 +91,10 @@ data "vault_generic_secret" "shared_services_s3" {
   path = "aws-accounts/shared-services/s3"
 }
 
+data "vault_generic_secret" "iscsi_initiator_name" {
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/ami-builds/${var.service_subtype}"
+}
+
 data "vault_generic_secret" "snapcenter_ip" {
   count = var.snapcenter ? 1 : 0
   path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/netapp-snapcenter"
@@ -103,7 +107,7 @@ data "template_file" "userdata" {
 
   vars = { 
     ENVIRONMENT          = title(var.environment)
-    APPLICATION_NAME     = var.service_subtype
-    ANSIBLE_INPUTS       = jsonencode(merge(local.ansible_inputs, { hostname = format("%s", var.service_subtype) }))
+    HOSTNAME             = local.ansible_inputs.fqdn
+    ISCSI_INITIATOR      = local.ansible_inputs.iscsi_initiator
   }
 }
