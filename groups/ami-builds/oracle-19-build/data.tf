@@ -91,6 +91,11 @@ data "vault_generic_secret" "shared_services_s3" {
   path = "aws-accounts/shared-services/s3"
 }
 
+data "vault_generic_secret" "snapcenter_ip" {
+  count = var.snapcenter ? 1 : 0
+  path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/netapp-snapcenter"
+}
+
 data "template_file" "userdata" {
   template = file("${path.module}/templates/user_data.tpl")
 

@@ -176,3 +176,9 @@ variable "team" {
   description = "The team name for ownership of this service."
   default     = "Linux/Storage"
 }
+
+variable "snapcenter" {
+  type        = string
+  description = "Boolean for Netapp Snapcenter"
+  default     = false
+}
