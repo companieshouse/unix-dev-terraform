@@ -22,7 +22,7 @@ resource "aws_vpc_security_group_ingress_rule" "oracle_19_build_snapcenter" {
   
   description       = "Allow Netapp Snapcenter access"
   security_group_id = aws_security_group.oracle_19_build.id
-  prefix_list_id    = data.vault_generic_secret.snapcenter_ip[0].data["ip"]
+  cidr_ipv4         = data.vault_generic_secret.snapcenter_ip[0].data["ip"]
   ip_protocol       = "tcp"
   from_port         = 8145
   to_port           = 8146
