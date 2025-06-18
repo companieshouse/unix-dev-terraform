@@ -17,6 +17,17 @@ resource "aws_vpc_security_group_ingress_rule" "oracle_19_build_ssh" {
   to_port           = 22
 }
 
+resource "aws_vpc_security_group_ingress_rule" "oracle_19_build_snapcenter" {
+  count = var.snapcenter ? 1 : 0
+  
+  description       = "Allow Netapp Snapcenter access"
+  security_group_id = aws_security_group.oracle_19_build.id
+  prefix_list_id    = data.vault_generic_secret.snapcenter_ip[0].data["ip"]
+  ip_protocol       = "tcp"
+  from_port         = 8145
+  to_port           = 8146
+}
+
 resource "aws_vpc_security_group_egress_rule" "oracle_19_build_all_out" {
   description       = "Allow outbound traffic"
   security_group_id = aws_security_group.oracle_19_build.id
