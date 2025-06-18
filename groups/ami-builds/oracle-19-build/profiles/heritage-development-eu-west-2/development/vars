@@ -17,4 +17,4 @@ service_subtype = "oracle-19-build"
 application_subnet_pattern = "sub-application-*"
 default_log_retention_in_days = "7"
 ami_version_pattern = "feature"
-snapcenter = true
+
