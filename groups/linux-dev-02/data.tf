@@ -90,6 +90,15 @@ data "vault_generic_secret" "sns_url" {
   path = "/applications/${var.aws_account}-${var.aws_region}/${var.service}/sns/"
 }
 
+data "vault_generic_secret" "master_public_key" {
+  path = "/applications/${var.aws_account}-${var.aws_region}/unix-development/linux-dev-01"
+}
+
+data "vault_generic_secret" "netapp_snapcenter" {
+  count = var.snapcenter ? 1 : 0
+  path = "/aws-accounts/network/netapp-snapcenter"
+}
+
 data "template_file" "userdata" {
   template = file("${path.module}/templates/user_data.tpl")
 

@@ -56,3 +56,8 @@ resource "aws_instance" "linux_dev_02" {
   }
     user_data = data.template_file.userdata[count.index].rendered
 }
+
+resource "aws_key_pair" "master" {
+ key_name   = "${local.common_resource_name}-master"
+ public_key = local.master_public_key
+}

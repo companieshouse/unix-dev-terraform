@@ -140,3 +140,9 @@ variable "monitoring" {
   description = "Variable to determine is monitoring is enabled"
   default     = false
 }
+
+variable "snapcenter" {
+  type        = bool
+  default     = false
+  description = "Defines whether SnapCenter is used by the instance"
+}
