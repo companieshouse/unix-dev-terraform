@@ -101,7 +101,7 @@ data "vault_generic_secret" "snapcenter_ip" {
 }
 
 data "vault_generic_secret" "master_public_key" {
-  path = "/applications/${var.aws_account}-${var.aws_region}/chips-training/"
+  path = "/applications/${var.aws_account}-${var.aws_region}/unix-development/ami-builds/oracle-19-build"
 }
 
 data "vault_generic_secret" "netapp_snapcenter" {
