@@ -130,8 +130,10 @@ resource "aws_instance" "oracle_19_build" {
       Backup         = true
     }
   }
-  
-  
-  
     user_data = data.template_file.userdata[count.index].rendered
+}
+
+resource "aws_key_pair" "master" {
+ key_name   = "${local.common_resource_name}-master"
+ public_key = local.master_public_key
 }

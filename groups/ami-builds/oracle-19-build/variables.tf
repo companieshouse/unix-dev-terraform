@@ -178,7 +178,7 @@ variable "team" {
 }
 
 variable "snapcenter" {
-  type        = string
-  description = "Boolean for Netapp Snapcenter"
+  type        = bool
   default     = false
+  description = "Defines whether SnapCenter is used by the instance"
 }

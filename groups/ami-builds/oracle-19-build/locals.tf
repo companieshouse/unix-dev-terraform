@@ -30,6 +30,9 @@ locals {
   ec2_ami_owner_data = data.vault_generic_secret.ami_owner.data
   ec2_ami_owner      = local.ec2_ami_owner_data["ami_owner"]
 
+  public_key = data.vault_generic_secret.master_public_key.data
+  master_public_key = local.public_key["public_key"]
+
   ansible_inputs = {
     environment     = var.environment
     region          = var.aws_region
