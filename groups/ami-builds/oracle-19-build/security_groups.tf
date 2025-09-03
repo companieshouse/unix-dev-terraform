@@ -39,7 +39,7 @@ resource "aws_vpc_security_group_ingress_rule" "snapcenter_433" {
   to_port           = 433
 }
 
-resource "aws_vpc_security_group_ingress_rule" "snapcenter_433" {
+resource "aws_vpc_security_group_ingress_rule" "snapcenter_22" {
   count = var.snapcenter ? 1 : 0
 
   description       = "Allow connectivity from Netapp Snapcenter"
