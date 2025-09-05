@@ -67,6 +67,13 @@ variable "ebs_device_name" {
   type        = string
 }
 
+variable "ebs_device_name_2" {
+  default     = "/dev/xvdd"
+  description = "The device name for the ebs device"
+  type        = string
+}
+
+
 variable "encrypt_ebs_block_device" {
   default     = true
   description = "Defines whether the EBS volume should be encrypted with the cluster's KMS key"
