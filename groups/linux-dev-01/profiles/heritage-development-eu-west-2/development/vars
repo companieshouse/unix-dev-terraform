@@ -15,3 +15,4 @@ service = "unix-development"
 service_subtype = "linux-dev-01"
 application_subnet_pattern = "sub-application-*"
 default_log_retention_in_days = "7"
+monitoring = true
