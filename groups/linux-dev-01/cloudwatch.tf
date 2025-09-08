@@ -54,7 +54,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space_u01" {
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
     InstanceId        = aws_instance.linux_dev_01[0].id
-  path              = "/mnt/test1"
+  path                = "/mnt/test1"
   }
 }
 
