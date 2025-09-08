@@ -5,7 +5,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_cpu95" {
   evaluation_periods        = "1"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   metric_name               = "CPUUtilization"
-  namespace                 = "LINUX-DEV-01/EC2"
+  namespace                 = "CWAgent"
   period                    = "60"
   statistic                 = "Maximum"
   threshold                 = "95"
@@ -13,6 +13,9 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_cpu95" {
   insufficient_data_actions = []
   alarm_actions             = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions                = [aws_sns_topic.linux_dev_01[0].arn]
+  dimensions = {
+    InstanceId   = aws_instance.linux_dev_01[0].id
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_StatusCheckFailed" {
@@ -22,7 +25,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_StatusCheckFailed" {
   evaluation_periods        = "1"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   metric_name               = "StatusCheckFailed"
-  namespace                 = "LINUX-DEV-01/EC2"
+  namespace                 = "CWAgent"
   period                    = "300"
   statistic                 = "Maximum"
   threshold                 = "1"
@@ -30,6 +33,9 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_StatusCheckFailed" {
   insufficient_data_actions = []
   alarm_actions             = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions                = [aws_sns_topic.linux_dev_01[0].arn]
+  dimensions = {
+    InstanceId   = aws_instance.linux_dev_01[0].id
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space" {
@@ -38,7 +44,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space" {
   alarm_name          = "CRITICAL-linux-dev-01-disk-space"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   metric_name         = "disk_used_percent"
-  namespace           = "LINUX-DEV-01/EC2"
+  namespace           = "CWAgent"
   period              = "600"
   evaluation_periods  = "1"
   statistic           = "Average"
@@ -47,6 +53,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space" {
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
+    InstanceId   = aws_instance.linux_dev_01[0].id
     path         = "*"
   }
 }
@@ -57,7 +64,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_root_disk_space" {
   alarm_name          = "WARNING-linux-dev-01-root-disk-space"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   metric_name         = "disk_used_percent"
-  namespace           = "LINUX-DEV-01/EC2"
+  namespace           = "CWAgent"
   period              = "600"
   evaluation_periods  = "1"
   statistic           = "Average"
@@ -66,6 +73,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_root_disk_space" {
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
+    InstanceId   = aws_instance.linux_dev_01[0].id
     path         = "/"
   }
 }
