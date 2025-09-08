@@ -39,11 +39,11 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   metric_name         = "disk_used_percent"
   namespace           = "LINUX-DEV-01/EC2"
-  period              = "600"
+  period              = "300"
   evaluation_periods  = "1"
   statistic           = "Average"
   threshold           = "90"
-  alarm_description   = "The disk space average precetage is over 90% for the last 10 minutes"
+  alarm_description   = "The disk space average precetage is over 90% for the last 5 minutes"
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
@@ -58,11 +58,11 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_root_disk_space" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   metric_name         = "disk_used_percent"
   namespace           = "LINUX-DEV-01/EC2"
-  period              = "600"
+  period              = "300"
   evaluation_periods  = "1"
   statistic           = "Average"
   threshold           = "80"
-  alarm_description   = "The disk space average precetage is over 80% for the last 10 minutes"
+  alarm_description   = "The disk space average precetage is over 80% for the last 5 minutes"
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
