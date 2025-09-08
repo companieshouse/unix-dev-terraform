@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_cpu95" {
   alarm_actions             = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions                = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
-    InstanceId   = aws_instance.linux_dev_01[0].id
+    InstanceId              = aws_instance.linux_dev_01[0].id
   }
 }
 
@@ -34,11 +34,31 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_StatusCheckFailed" {
   alarm_actions             = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions                = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
-    InstanceId   = aws_instance.linux_dev_01[0].id
+    InstanceId              = aws_instance.linux_dev_01[0].id
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space" {
+resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space_u01" {
+  count = var.monitoring ? 1 : 0
+
+  alarm_name          = "CRITICAL-linux-dev-01-disk-space"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  metric_name         = "disk_used_percent"
+  namespace           = "CWAgent"
+  period              = "600"
+  evaluation_periods  = "1"
+  statistic           = "Average"
+  threshold           = "90"
+  alarm_description   = "The disk space average precetage is over 90% for the last 10 minutes"
+  alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
+  ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
+  dimensions = {
+    InstanceId        = aws_instance.linux_dev_01[0].id
+  path              = "/mnt/test1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_spac_u02" {
   count = var.monitoring ? 1 : 0
   
   alarm_name          = "CRITICAL-linux-dev-01-disk-space"
@@ -53,8 +73,8 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space" {
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
-    InstanceId   = aws_instance.linux_dev_01[0].id
-    path         = "*"
+    InstanceId        = aws_instance.linux_dev_01[0].id
+    path              = "/mnt/test2"
   }
 }
 
@@ -73,7 +93,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_root_disk_space" {
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
-    InstanceId   = aws_instance.linux_dev_01[0].id
-    path         = "/"
+    InstanceId        = aws_instance.linux_dev_01[0].id
+    path              = "/"
   }
 }
