@@ -37,6 +37,11 @@ variable "encrypt_root_block_device" {
   type        = bool
 }
 
+variable "disk_fs_type" {
+  default     = "xfs"
+  description = "Default filesytem type for root/ebs block devices"
+  type        = string
+}
 variable "root_block_device_iops" {
   default     = 3000
   description = "The required IOPS on the EBS volume; 3000 is the gp3 default"
@@ -72,7 +77,6 @@ variable "ebs_device_name_2" {
   description = "The device name for the ebs device"
   type        = string
 }
-
 
 variable "encrypt_ebs_block_device" {
   default     = true

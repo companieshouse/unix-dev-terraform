@@ -38,7 +38,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_StatusCheckFailed" {
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space_u01" {
+resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space_ebs1" {
   count = var.monitoring ? 1 : 0
 
   alarm_name          = "CRITICAL-linux-dev-01-disk-space"
@@ -53,15 +53,19 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space_u01" {
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
+    path              = local.disk_info.ebs_vol_1.path
     InstanceId        = aws_instance.linux_dev_01[0].id
-  path                = "/mnt/test1"
+    ImageId           = data.aws_ami.linux_dev_ami.id
+    InstanceType      = var.instance_type
+    device            = local.disk_info.ebs_vol_1.device
+    fstype            = local.disk_info.ebs_vol_1.fstype
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_spac_u02" {
+resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_spac_ebs2" {
   count = var.monitoring ? 1 : 0
   
-  alarm_name          = "CRITICAL-linux-dev-01-disk-space"
+  alarm_name          = "CRITICAL-linux-dev-01-disk-space-ebs2"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   metric_name         = "disk_used_percent"
   namespace           = "CWAgent"
@@ -94,6 +98,6 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_root_disk_space" {
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
   dimensions = {
     InstanceId        = aws_instance.linux_dev_01[0].id
-    path              = "/"
+    path              = local.disk_info.root_vol.path
   }
 }
