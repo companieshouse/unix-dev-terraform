@@ -33,7 +33,7 @@ locals {
 
   disk_info = {
     root_vol = {
-      device = "/dev/xvda4"
+      device = "xvda4"
       fstype = var.disk_fs_type
       path   = "/"
     }
