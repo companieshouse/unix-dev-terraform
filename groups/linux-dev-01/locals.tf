@@ -31,6 +31,24 @@ locals {
   ami_owner = data.vault_generic_secret.ami_owner.data
   ami_owner_id = local.ami_owner["ami_owner"]
 
+  disk_info = {
+    root_vol = {
+      device = "/dev/xvda4"
+      fstype = var.disk_fs_type
+      path   = "/"
+    }
+    ebs_vol_1 = {
+      device = "mapper/test1-test_lv"
+      fstype = var.disk_fs_type
+      path   = "/mnt/test1"
+    }
+    ebs_vol_2 = {
+      device = "mapper/test2-test_lv2"
+      fstype = var.disk_fs_type
+      path   = "/mnt/test2"
+    }
+  }
+
   ansible_inputs = {
     environment = var.environment
     region      = var.aws_region
