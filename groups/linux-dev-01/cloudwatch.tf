@@ -41,7 +41,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_StatusCheckFailed" {
 resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space_ebs1" {
   count = var.monitoring ? 1 : 0
 
-  alarm_name          = "CRITICAL_linux_dev_01_%_used_ebs-vol_1"
+  alarm_name          = "CRITICAL_linux_dev_01_%_used_ebs_vol_1"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   metric_name         = "disk_used_percent"
   namespace           = "CWAgent"
