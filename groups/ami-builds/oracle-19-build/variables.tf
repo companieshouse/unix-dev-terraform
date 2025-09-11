@@ -13,6 +13,12 @@ variable "environment" {
   description = "The environment name to be used when provisioning AWS resources."
 }
 
+variable "origin" {
+  type        = string
+  description = "Github Repository where instance code resides"
+  default     = "unix-dev-terraform"
+}
+
 variable "ec2_ami_id" {
   default     = ""
   description = "The AMI id to use when launching instances in the ASG; when set, will be preferred over the result of an AMI lookup"
@@ -163,7 +169,6 @@ variable "default_log_retention_in_days" {
 variable "service" {
   type        = string
   description = "The service name to be used when creating AWS resources."
-
 }
 
 variable "service_subtype" {

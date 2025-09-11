@@ -29,6 +29,12 @@ variable "aws_account" {
   description = "The name of the AWS Account in which resources will be administered"
 }
 
+variable "origin" {
+  type        = string
+  description = "Github Repository where instance code resides"
+  default     = "unix-dev-terraform"
+}
+
 # ------------------------------------------------------------------------------
 # AWS Variables - Shorthand
 # ------------------------------------------------------------------------------
