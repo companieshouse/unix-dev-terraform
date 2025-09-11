@@ -16,6 +16,7 @@ resource "aws_instance" "oracle_19_build" {
     Backup         = false
     Domain         = "${var.environment}.${var.dns_zone_suffix}"
     Hostname       = "${var.service_subtype}"
+    Repository     = var.origin
   }
 
   root_block_device {

@@ -78,5 +78,6 @@ source_security_group_id = [for item in data.aws_security_group.amzn2_build_sg :
     Application = upper(var.application)
     Region      = var.aws_region
     Account     = var.aws_account
+    Repository  = var.origin
   }
 }

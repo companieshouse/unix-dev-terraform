@@ -12,6 +12,11 @@ variable "environment" {
   type        = string
   description = "The environment name to be used when provisioning AWS resources."
 }
+variable "origin" {
+  type        = string
+  description = "Github Repository where instance code resides"
+  default     = "unix-dev-terraform"
+}
 
 variable "ec2_ami_id" {
   default     = ""
