@@ -1,3 +1,11 @@
+resource "aws_cloudwatch_log_group" "linux-dev-01" {
+  name              = "/aws/ec2/${local.common_resource_name}"
+  retention_in_days = var.default_log_retention_in_days
+  kms_key_id        = local.ssm_kms_key_id
+
+  tags = local.common_tags
+}
+
 resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_cpu95" {
   count = var.monitoring ? 1 : 0
   
