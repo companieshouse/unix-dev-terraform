@@ -34,45 +34,54 @@ resource "aws_instance" "linux_dev_01" {
       Team           = var.team
       Backup         = true
     }
-
-  }
-
-  ebs_block_device {
-    device_name           = var.ebs_device_name
-    volume_size           = var.data_volume_size_gib
-    encrypted             = var.encrypt_ebs_block_device
-    iops                  = var.ebs_block_device_iops
-    kms_key_id            = data.aws_kms_alias.ebs.target_key_arn
-    throughput            = var.ebs_block_device_throughput
-    volume_type           = var.ebs_block_device_volume_type
-    delete_on_termination = var.ebs_delete_on_termination
-    tags = {
-      Name           = "${local.common_resource_name}-data"
-      Environment    = var.environment
-      Service        = var.service
-      ServiceSubType = var.service_subtype
-      Team           = var.team
-      Backup         = true
-    }
-  }
-  
-  ebs_block_device {
-    device_name           = var.ebs_device_name_2
-    volume_size           = var.data_volume_size_gib
-    encrypted             = var.encrypt_ebs_block_device
-    iops                  = var.ebs_block_device_iops
-    kms_key_id            = data.aws_kms_alias.ebs.target_key_arn
-    throughput            = var.ebs_block_device_throughput
-    volume_type           = var.ebs_block_device_volume_type
-    delete_on_termination = var.ebs_delete_on_termination
-    tags = {
-      Name           = "${local.common_resource_name}-data-2"
-      Environment    = var.environment
-      Service        = var.service
-      ServiceSubType = var.service_subtype
-      Team           = var.team
-      Backup         = true
-    }
   }
     user_data = data.template_file.userdata[count.index].rendered
+}
+
+resource "aws_ebs_volume" "data" {
+  availability_zone     = var.aws_region
+  size                  = var.data_volume_size_gib
+  encrypted             = var.encrypt_ebs_block_device
+  iops                  = var.ebs_block_device_iops
+  kms_key_id            = data.aws_kms_alias.ebs.target_key_arn
+  throughput            = var.ebs_block_device_throughput
+  type                  = var.ebs_block_device_volume_type
+  tags = {
+    Name           = "${local.common_resource_name}-data"
+    Environment    = var.environment
+    Service        = var.service
+    ServiceSubType = var.service_subtype
+    Team           = var.team
+    Backup         = true
+  }
+}
+
+resource "aws_volume_attachment" "data_att" {
+  device_name = var.ebs_device_name
+  volume_id   = aws_ebs_volume.data.id
+  instance_id = aws_instance.linux_dev_01[0].id
+}
+
+resource "aws_ebs_volume" "data2" {
+  availability_zone     = var.aws_region
+  size                  = var.data_volume_size_gib
+  encrypted             = var.encrypt_ebs_block_device
+  iops                  = var.ebs_block_device_iops
+  kms_key_id            = data.aws_kms_alias.ebs.target_key_arn
+  throughput            = var.ebs_block_device_throughput
+  type                  = var.ebs_block_device_volume_type
+  tags = {
+    Name           = "${local.common_resource_name}-data2"
+    Environment    = var.environment
+    Service        = var.service
+    ServiceSubType = var.service_subtype
+    Team           = var.team
+    Backup         = true
+  }
+}
+
+resource "aws_volume_attachment" "data2_att" {
+  device_name = var.ebs_device_name_2
+  volume_id   = aws_ebs_volume.data2.id
+  instance_id = aws_instance.linux_dev_01[0].id
 }
