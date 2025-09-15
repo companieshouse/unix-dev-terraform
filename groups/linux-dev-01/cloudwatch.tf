@@ -60,6 +60,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_space_ebs1" {
   alarm_description   = "The disk space average precetage is over 90% for the last 10 minutes"
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
+  treat_missing_data  = "ignore"   
   dimensions = {
     path              = local.disk_info.ebs_vol_1.path
     InstanceId        = aws_instance.linux_dev_01[0].id
@@ -84,6 +85,7 @@ resource "aws_cloudwatch_metric_alarm" "linux_dev_01_server_disk_spac_ebs_vol_2"
   alarm_description   = "The disk space average precetage is over 90% for the last 10 minutes"
   alarm_actions       = [aws_sns_topic.linux_dev_01[0].arn]
   ok_actions          = [aws_sns_topic.linux_dev_01[0].arn]
+  treat_missing_data  = "ignore"   
   dimensions = {
     path              = local.disk_info.ebs_vol_2.path
     InstanceId        = aws_instance.linux_dev_01[0].id
