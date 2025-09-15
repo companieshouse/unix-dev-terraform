@@ -39,7 +39,9 @@ resource "aws_instance" "linux_dev_01" {
 }
 
 resource "aws_ebs_volume" "data" {
-  availability_zone     = var.aws_region
+  depends_on = [aws_instance.linux_dev_01]
+
+  availability_zone     = aws_instance.linux_dev_01[0].availability_zone
   size                  = var.data_volume_size_gib
   encrypted             = var.encrypt_ebs_block_device
   iops                  = var.ebs_block_device_iops
@@ -57,13 +59,18 @@ resource "aws_ebs_volume" "data" {
 }
 
 resource "aws_volume_attachment" "data_att" {
+  depends_on = [aws_ebs_volume.data]
+
   device_name = var.ebs_device_name
   volume_id   = aws_ebs_volume.data.id
   instance_id = aws_instance.linux_dev_01[0].id
+
 }
 
 resource "aws_ebs_volume" "data2" {
-  availability_zone     = var.aws_region
+  depends_on = [aws_instance.linux_dev_01]
+
+  availability_zone     = aws_instance.linux_dev_01[0].availability_zone
   size                  = var.data_volume_size_gib
   encrypted             = var.encrypt_ebs_block_device
   iops                  = var.ebs_block_device_iops
@@ -81,6 +88,8 @@ resource "aws_ebs_volume" "data2" {
 }
 
 resource "aws_volume_attachment" "data2_att" {
+  depends_on = [aws_ebs_volume.data2]
+
   device_name = var.ebs_device_name_2
   volume_id   = aws_ebs_volume.data2.id
   instance_id = aws_instance.linux_dev_01[0].id
