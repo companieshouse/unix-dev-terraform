@@ -20,7 +20,7 @@ locals {
   security_kms_keys_data    = data.vault_generic_secret.security_kms_keys.data
   ssm_kms_key_id            = local.security_kms_keys_data.session-manager-kms-key-arn
   kms_keys                  = data.vault_generic_secret.kms_keys.data
-  cloudwatch_logs_kms_key   = local.kms_keys_data.logs
+  cloudwatch_logs_kms_key   = local.kms_keys.logs
 
   account_ids_secrets = jsondecode(data.vault_generic_secret.account_ids.data_json)
 
