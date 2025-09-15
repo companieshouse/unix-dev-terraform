@@ -6,6 +6,9 @@ data "aws_kms_alias" "ebs" {
   name = local.kms_key_alias
 }
 
+data "vault_generic_secret" "kms_keys" {
+    path = "aws-accounts/${var.aws_account}/kms"
+}
 data "vault_generic_secret" "kms_key_alias" {
   path = "applications/${var.aws_account}-${var.aws_region}/${var.service}/${var.service_subtype}"
 }

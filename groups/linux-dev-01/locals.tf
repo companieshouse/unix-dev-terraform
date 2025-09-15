@@ -17,9 +17,10 @@ locals {
   shared_services_s3_data     = data.vault_generic_secret.shared_services_s3.data
   resources_bucket_name       = local.shared_services_s3_data["resources_bucket_name"]
 
-  security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
-  ssm_kms_key_id         = local.security_kms_keys_data.session-manager-kms-key-arn
-  cloudtrail_kms_key     = local.security_kms_keys_data.cloudtrail-kms-key-arn
+  security_kms_keys_data    = data.vault_generic_secret.security_kms_keys.data
+  ssm_kms_key_id            = local.security_kms_keys_data.session-manager-kms-key-arn
+  kms_keys                  = data.vault_generic_secret.kms_keys.data
+  cloudwatch_logs_kms_key   = local.kms_keys_data.logs
 
   account_ids_secrets = jsondecode(data.vault_generic_secret.account_ids.data_json)
 
